@@ -3,8 +3,8 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-model_path = 'models/lr_heart_model.pkl'  
-scaler_path = 'models/scaler.pkl'  
+model_path = 'models/logreg_model1.pkl'  
+scaler_path = 'models/scaler1.pkl'  
 
 model = joblib.load(model_path)
 scaler = joblib.load(scaler_path)
