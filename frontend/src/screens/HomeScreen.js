@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import PopupForm from "../components/PopoutForm";
 
 const HomeScreen = () => {
+    const [showPopup, setShowPopup] = useState(false);
+
+    const handleMeasureClick = () => {
+        setShowPopup(true);
+    };
+
+    const closePopup = () => {
+        setShowPopup(false);
+    };
+
     return (
         <div
-            className="relative flex size-full min-h-screen flex-col bg-[#171111] dark justify-between group/design-root overflow-x-hidden"
+            className="relative flex size-full min-h-screen flex-col bg-[#171111] dark justify-between overflow-x-hidden items-center"
             style={{ fontFamily: 'Manrope, "Noto Sans", sans-serif' }}
         >
             <div>
@@ -12,11 +23,9 @@ const HomeScreen = () => {
                         Heart Rate
                     </h2>
                 </div>
-
                 <h2 className="text-white tracking-light text-[28px] font-bold leading-tight px-4 text-center pb-3 pt-5">
                     Your heart rate is 75 bpm
                 </h2>
-
                 <div className="flex flex-wrap gap-4 px-4 py-6">
                     <div className="flex min-w-72 flex-1 flex-col gap-2 rounded-xl border border-[#523d3d] p-6">
                         <p className="text-white text-base font-medium leading-normal">Your Heart Rate</p>
@@ -58,7 +67,6 @@ const HomeScreen = () => {
                                     </linearGradient>
                                 </defs>
                             </svg>
-
                             <div className="flex justify-around">
                                 <p className="text-[#b79e9e] text-[13px] font-bold leading-normal tracking-[0.015em]">1:30</p>
                                 <p className="text-[#b79e9e] text-[13px] font-bold leading-normal tracking-[0.015em]">1:40</p>
@@ -68,11 +76,9 @@ const HomeScreen = () => {
                         </div>
                     </div>
                 </div>
-
                 <h3 className="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
                     Heart Attack Risk Indicator
                 </h3>
-
                 <div className="flex items-center gap-4 bg-[#171111] px-4 min-h-14">
                     <div
                         className="text-white flex items-center justify-center rounded-lg bg-[#382929] shrink-0 size-10"
@@ -87,7 +93,7 @@ const HomeScreen = () => {
                             fill="currentColor"
                             viewBox="0 0 256 256"
                         >
-                            <path d="M178,32c-20.65,0-38.73,8.88-50,23.89C116.73,40.88,98.65,32,78,32A62.07,62.07,0,0,0,16,94c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,220.66,240,164,240,94A62.07,62.07,0,0,0,178,32ZM128,206.8C109.74,196.16,32,147.69,32,94A46.06,46.06,0,0,1,78,48c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,147.61,146.24,196.15,128,206.8Z" />
+                            <path d="M178,32c-20.65,0-38.73,8.88-50,23.89C116.73,40.88,98.65,32,78,32A62.07,62.07,0,0,0,16,94c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,220.66,240,164,240,94A62.07,62.07,0,0,0,178,32ZM128,206.8C109.74,196.16,32,147.69,32,94A46.06,46.06,0,0,1,78,48c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,147.61,146.24,196.15,128,206.8Z"></path>
                         </svg>
                     </div>
                     <p className="text-white text-base font-normal leading-normal flex-1 truncate">
@@ -96,9 +102,13 @@ const HomeScreen = () => {
                 </div>
             </div>
 
-            <div>
-                <div className="h-5 bg-[#171111]"></div>
-            </div>
+            {showPopup && <PopupForm onClose={closePopup} />}
+        <button
+            className="px-4 py-2 bg-[#df2020] text-white font-bold rounded my-10"
+            onClick={handleMeasureClick}
+        >
+            Show Popup
+        </button>
         </div>
     );
 };
