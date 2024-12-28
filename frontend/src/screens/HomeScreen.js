@@ -26,20 +26,20 @@ const HomeScreen = () => {
     const handleFormSubmit = (formData) => {
         console.log("Form data submitted:", formData);
 
-        const { age, height, weight, gender, ap_hi, ap_lo, cholesterol, glucose, smoking, alcohol, physicalActivity } = formData;
+        const { age, gender, height, weight, systolic_bp, diastolic_bp, cholesterol, glucose, smoke, alcohol, physical_activity } = formData;
 
         const dataToSend = {
             age,
+            gender,
             height,
             weight,
-            gender,
-            ap_hi,
-            ap_lo,
+            systolic_bp,
+            diastolic_bp,
             cholesterol,
             glucose,
-            smoking,
+            smoke,
             alcohol,
-            physicalActivity,
+            physical_activity,
         };
 
         getPrediction(dataToSend);
@@ -51,9 +51,9 @@ const HomeScreen = () => {
             const response = await mlModelsApi.getPrediction(data);
             const prediction = response.prediction[0];
 
-            if (prediction === 0) {
+            if (prediction === 1) {
                 setRisk("High risk of heart disease");
-            } else if (prediction === 1) {
+            } else if (prediction === 0) {
                 setRisk("Low risk of heart disease");
             } else {
                 setRisk("Unable to determine risk");

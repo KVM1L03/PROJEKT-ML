@@ -3,16 +3,16 @@ import React, { useState } from 'react';
 const PopupForm = ({ onClose, onSubmit }) => {
     const [formData, setFormData] = useState({
         age: '',
+        gender: '',
         height: '',
         weight: '',
-        gender: '',
-        ap_hi: '',
-        ap_lo : '',
+        systolic_bp: '',
+        diastolic_bp : '',
         cholesterol: '',
         glucose: '',
-        smoking: '',
+        smoke: '',
         alcohol: '',
-        physicalActivity: '',
+        physical_activity: '',
     });
 
     const handleInputChange = (e) => {
@@ -61,6 +61,17 @@ const PopupForm = ({ onClose, onSubmit }) => {
                         />
                     </div>
                     <div>
+                        <label className="block text-sm font-medium mb-1">Gender</label>
+                        <input
+                            type="text"
+                            name="gender"
+                            value={formData.gender}
+                            onChange={handleInputChange}
+                            className="w-full bg-[#382929] text-white p-2 rounded"
+                            placeholder="Enter your gender"
+                        />
+                    </div>
+                    <div>
                         <label className="block text-sm font-medium mb-1">Height (cm)</label>
                         <input
                             type="number"
@@ -82,23 +93,13 @@ const PopupForm = ({ onClose, onSubmit }) => {
                             placeholder="Enter your weight (kg)"
                         />
                     </div>
-                    <div>
-                        <label className="block text-sm font-medium mb-1">Gender</label>
-                        <input
-                            type="text"
-                            name="gender"
-                            value={formData.gender}
-                            onChange={handleInputChange}
-                            className="w-full bg-[#382929] text-white p-2 rounded"
-                            placeholder="Enter your gender"
-                        />
-                    </div>
+                    
                     <div>
                         <label className="block text-sm font-medium mb-1">Systolic Blood Pressure</label>
                         <input
                             type="number"
-                            name="ap_hi"
-                            value={formData.ap_hi}
+                            name="systolic_bp"
+                            value={formData.systolic_bp}
                             onChange={handleInputChange}
                             className="w-full bg-[#382929] text-white p-2 rounded"
                             placeholder="Enter your systolic BP"
@@ -108,8 +109,8 @@ const PopupForm = ({ onClose, onSubmit }) => {
                         <label className="block text-sm font-medium mb-1">Diastolic blood pressure</label>
                         <input
                             type="number"
-                            name="ap_lo"
-                            value={formData.ap_lo}
+                            name="diastolic_bp"
+                            value={formData.diastolic_bp}
                             onChange={handleInputChange}
                             className="w-full bg-[#382929] text-white p-2 rounded"
                             placeholder="Enter your diastolic BP"
@@ -141,8 +142,8 @@ const PopupForm = ({ onClose, onSubmit }) => {
                         <label className="block text-sm font-medium mb-1">Smoking</label>
                         <input
                             type="text"
-                            name="smoking"
-                            value={formData.smoking}
+                            name="smoke"
+                            value={formData.smoke}
                             onChange={handleInputChange}
                             className="w-full bg-[#382929] text-white p-2 rounded"
                             placeholder="Do you smoke? (Yes/No)"
@@ -163,8 +164,8 @@ const PopupForm = ({ onClose, onSubmit }) => {
                         <label className="block text-sm font-medium mb-1">Physical Activity</label>
                         <input
                             type="text"
-                            name="physicalActivity"
-                            value={formData.physicalActivity}
+                            name="physical_activity"
+                            value={formData.physical_activity}
                             onChange={handleInputChange}
                             className="w-full bg-[#382929] text-white p-2 rounded"
                             placeholder="Physical activity (Yes/No)"
