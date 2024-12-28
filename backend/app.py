@@ -1,7 +1,9 @@
 import joblib
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 model_path = 'models/logreg_model1.pkl'  
 scaler_path = 'models/scaler1.pkl'  

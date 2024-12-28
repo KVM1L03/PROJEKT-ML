@@ -1,15 +1,61 @@
 import React, { useState } from "react";
 import PopupForm from "../components/PopoutForm";
+import mlModelsApi from "../api/mlModelsApi";
 
 const HomeScreen = () => {
     const [showPopup, setShowPopup] = useState(false);
+    const [heartRate, setHeartRate] = useState(80); 
+    const [risk, setRisk] = useState(null);
 
     const handleMeasureClick = () => {
         setShowPopup(true);
     };
-
+    
     const closePopup = () => {
         setShowPopup(false);
+    };
+    
+    const handleFormSubmit = (formData) => {
+        console.log("Form data submitted:", formData);
+    
+        const { age, height, weight, gender, ap_hi, ap_lo, cholesterol, glucose, smoking, alcohol, physicalActivity } = formData;
+    
+        const dataToSend = {
+            age,
+            height,
+            weight,
+            gender,
+            ap_hi,
+            ap_lo,
+            cholesterol,
+            glucose,
+            smoking,
+            alcohol,
+            physicalActivity,
+        };
+    
+        getPrediction(dataToSend);
+    
+        setShowPopup(false);
+    };
+    
+    const getPrediction = async (data) => {
+        try {
+            const response = await mlModelsApi.getPrediction(data);
+            const prediction = response.prediction[0];
+    
+            if (prediction === 0) {
+                setRisk("High risk of heart disease");
+            } else if (prediction === 1) {
+                setRisk("Low risk of heart disease");
+            } else {
+                setRisk("Unable to determine risk");
+            }
+    
+            console.log("Prediction:", prediction);
+        } catch (error) {
+            console.error("Error fetching prediction:", error);
+        }
     };
 
     return (
@@ -24,12 +70,12 @@ const HomeScreen = () => {
                     </h2>
                 </div>
                 <h2 className="text-white tracking-light text-[28px] font-bold leading-tight px-4 text-center pb-3 pt-5">
-                    Your heart rate is 75 bpm
+                    Your heart rate is {heartRate} bpm
                 </h2>
                 <div className="flex flex-wrap gap-4 px-4 py-6">
                     <div className="flex min-w-72 flex-1 flex-col gap-2 rounded-xl border border-[#523d3d] p-6">
                         <p className="text-white text-base font-medium leading-normal">Your Heart Rate</p>
-                        <p className="text-white tracking-light text-[32px] font-bold leading-tight truncate">75 bpm</p>
+                        <p className="text-white tracking-light text-[32px] font-bold leading-tight truncate">{heartRate} bpm</p>
                         <div className="flex gap-1">
                             <p className="text-[#b79e9e] text-base font-normal leading-normal">Now</p>
                             <p className="text-[#0bda0b] text-base font-medium leading-normal">+2%</p>
@@ -97,18 +143,19 @@ const HomeScreen = () => {
                         </svg>
                     </div>
                     <p className="text-white text-base font-normal leading-normal flex-1 truncate">
-                        Your risk today is low.
+                        {risk || "Calculating..."}
                     </p>
                 </div>
             </div>
 
-            {showPopup && <PopupForm onClose={closePopup} />}
-        <button
-            className="px-4 py-2 bg-[#df2020] text-white font-bold rounded my-10"
-            onClick={handleMeasureClick}
-        >
-            Show Popup
-        </button>
+            {showPopup && <PopupForm onSubmit={handleFormSubmit} onClose={closePopup} />}
+            
+            <button
+                className="px-4 py-2 bg-[#df2020] text-white font-bold rounded my-10"
+                onClick={handleMeasureClick}
+            >
+                Show Popup
+            </button>
         </div>
     );
 };
