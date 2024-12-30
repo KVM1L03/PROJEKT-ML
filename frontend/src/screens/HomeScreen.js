@@ -1,18 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PopupForm from "../components/PopoutForm";
 import mlModelsApi from "../api/mlModelsApi";
 import Chart from "../components/Chart";
-import charts from "../data/chartData"; // Importing chart data
+import fetchChartData from "../data/chartData";
+import { saveMeasurement } from "../utils/storage";
 
 const HomeScreen = () => {
     const [showPopup, setShowPopup] = useState(false);
-    const [heartRate, setHeartRate] = useState(80);
     const [risk, setRisk] = useState(null);
+    const [chartConfig, setChartConfig] = useState([]);
+    const [selectedChartIndex, setSelectedChartIndex] = useState(0);
 
-    const [chartConfig, setChartConfig] = useState(charts[0]);
+    useEffect(() => {
+        const loadChartData = async () => {
+            const charts = await fetchChartData();
+            setChartConfig(charts);
+        };
+        loadChartData();
+    }, []);
 
     const handleChartSwitch = (index) => {
-        setChartConfig(charts[index]);
+        setSelectedChartIndex(index);
     };
 
     const handleMeasureClick = () => {
@@ -23,7 +31,7 @@ const HomeScreen = () => {
         setShowPopup(false);
     };
 
-    const handleFormSubmit = (formData) => {
+    const handleFormSubmit = async (formData) => {
         console.log("Form data submitted:", formData);
 
         const { age, gender, height, weight, systolic_bp, diastolic_bp, cholesterol, glucose, smoke, alcohol, physical_activity } = formData;
@@ -42,8 +50,12 @@ const HomeScreen = () => {
             physical_activity,
         };
 
-        getPrediction(dataToSend);
+        await saveMeasurement(dataToSend);
+        await getPrediction(dataToSend);
         setShowPopup(false);
+
+        const charts = await fetchChartData();
+        setChartConfig(charts);
     };
 
     const getPrediction = async (data) => {
@@ -67,14 +79,12 @@ const HomeScreen = () => {
 
     return (
         <div
-            className="relative flex size-full min-h-screen flex-col bg-[#171111] justify-between overflow-x-hidden items-center"
-            style={{ fontFamily: "Manrope, 'Noto Sans', sans-serif" }}
-        >
+            className="relative flex size-full min-h-screen flex-col bg-[#171111] justify-between overflow-x-hidden items-center">
             <header className="w-full bg-[#171111] p-4 pb-2 text-center">
-                <h1 className="text-white text-2xl font-bold tracking-tight">AI Health</h1>
+                <img alt="" /><img src="https://i.ibb.co/sqBfgHf/obraz-2024-12-30-111017033-removebg-preview.png" alt="AI Health Logo" className="mx-auto h-64" />
             </header>
 
-            <section className="w-full text-center py-4">
+            <section className="w-full text-center py-2">
                 <h3 className="text-white text-lg font-bold">Heart Attack Risk Indicator</h3>
                 <div className="flex items-center gap-4 bg-[#171111] px-4 py-2">
                 </div>
@@ -104,7 +114,7 @@ const HomeScreen = () => {
 
             <section className="py-6">
                 <div className="flex justify-center gap-4 pb-4">
-                    {charts.map((chart, index) => (
+                    {Array.isArray(chartConfig) && chartConfig.map((chart, index) => (
                         <button
                             key={index}
                             onClick={() => handleChartSwitch(index)}
@@ -114,11 +124,12 @@ const HomeScreen = () => {
                         </button>
                     ))}
                 </div>
-                <Chart
-                    data={chartConfig.data}
-                    title={chartConfig.title}
-                    xAxisRange={chartConfig.xAxisRange}
-                />
+                {Array.isArray(chartConfig) && chartConfig.length > 0 && (
+                    <Chart
+                        data={chartConfig[selectedChartIndex].data}
+                        title={chartConfig[selectedChartIndex].title}
+                    />
+                )}
             </section>
         </div>
     );

@@ -7,13 +7,31 @@ const PopupForm = ({ onClose, onSubmit }) => {
         height: '',
         weight: '',
         systolic_bp: '',
-        diastolic_bp : '',
+        diastolic_bp: '',
         cholesterol: '',
         glucose: '',
         smoke: '',
         alcohol: '',
         physical_activity: '',
     });
+
+    const validateInput = () => {
+        const { age, gender, height, weight, systolic_bp, diastolic_bp, cholesterol, glucose, smoke, alcohol, physical_activity } = formData;
+
+        if (!age || age <= 0) return 'Age must be a positive number.';
+        if (gender !== '1' && gender !== '2') return 'Gender must be 1 (Woman) or 2 (Man).';
+        if (!height || height < 1 || height > 250) return 'Height must be between 1 and 250 cm.';
+        if (!weight || weight < 0 || weight > 500) return 'Weight must be between 0 and 500 kg.';
+        if (!systolic_bp || systolic_bp < 80 || systolic_bp > 200) return 'Systolic blood pressure must be between 80 and 200.';
+        if (!diastolic_bp || diastolic_bp < 40 || diastolic_bp > 120) return 'Diastolic blood pressure must be between 40 and 120.';
+        if (!cholesterol || cholesterol < 1 || cholesterol > 10) return 'Cholesterol level must be between 1 and 10.';
+        if (!glucose || glucose < 1 || glucose > 10) return 'Glucose level must be between 1 and 10.';
+        if (smoke !== '0' && smoke !== '1') return 'Smoking must be 0 (No) or 1 (Yes).';
+        if (alcohol !== '0' && alcohol !== '1') return 'Alcohol must be 0 (No) or 1 (Yes).';
+        if (physical_activity !== '0' && physical_activity !== '1') return 'Physical activity must be 0 (No) or 1 (Yes).';
+
+        return null;
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -26,13 +44,13 @@ const PopupForm = ({ onClose, onSubmit }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (Object.values(formData).some((value) => value === '')) {
-            alert('Please fill in all fields.');
+        const errorMessage = validateInput();
+        if (errorMessage) {
+            alert(errorMessage);
             return;
         }
 
         onSubmit(formData);
-
         onClose();
     };
 
@@ -62,14 +80,16 @@ const PopupForm = ({ onClose, onSubmit }) => {
                     </div>
                     <div>
                         <label className="block text-sm font-medium mb-1">Gender</label>
-                        <input
-                            type="text"
+                        <select
                             name="gender"
                             value={formData.gender}
                             onChange={handleInputChange}
                             className="w-full bg-[#382929] text-white p-2 rounded"
-                            placeholder="Enter your gender"
-                        />
+                        >
+                            <option value="">Select Gender</option>
+                            <option value="1">Woman</option>
+                            <option value="2">Man</option>
+                        </select>
                     </div>
                     <div>
                         <label className="block text-sm font-medium mb-1">Height (cm)</label>
@@ -93,7 +113,6 @@ const PopupForm = ({ onClose, onSubmit }) => {
                             placeholder="Enter your weight (kg)"
                         />
                     </div>
-                    
                     <div>
                         <label className="block text-sm font-medium mb-1">Systolic Blood Pressure</label>
                         <input
@@ -106,7 +125,7 @@ const PopupForm = ({ onClose, onSubmit }) => {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium mb-1">Diastolic blood pressure</label>
+                        <label className="block text-sm font-medium mb-1">Diastolic Blood Pressure</label>
                         <input
                             type="number"
                             name="diastolic_bp"
@@ -140,36 +159,42 @@ const PopupForm = ({ onClose, onSubmit }) => {
                     </div>
                     <div>
                         <label className="block text-sm font-medium mb-1">Smoking</label>
-                        <input
-                            type="text"
+                        <select
                             name="smoke"
                             value={formData.smoke}
                             onChange={handleInputChange}
                             className="w-full bg-[#382929] text-white p-2 rounded"
-                            placeholder="Do you smoke? (Yes/No)"
-                        />
+                        >
+                            <option value="">Select Smoking Status</option>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
                     </div>
                     <div>
                         <label className="block text-sm font-medium mb-1">Alcohol Intake</label>
-                        <input
-                            type="text"
+                        <select
                             name="alcohol"
                             value={formData.alcohol}
                             onChange={handleInputChange}
                             className="w-full bg-[#382929] text-white p-2 rounded"
-                            placeholder="Alcohol intake (Yes/No)"
-                        />
+                        >
+                            <option value="">Select Alcohol Intake</option>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
                     </div>
                     <div>
                         <label className="block text-sm font-medium mb-1">Physical Activity</label>
-                        <input
-                            type="text"
+                        <select
                             name="physical_activity"
                             value={formData.physical_activity}
                             onChange={handleInputChange}
                             className="w-full bg-[#382929] text-white p-2 rounded"
-                            placeholder="Physical activity (Yes/No)"
-                        />
+                        >
+                            <option value="">Select Physical Activity</option>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
                     </div>
                 </form>
 

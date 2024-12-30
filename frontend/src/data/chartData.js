@@ -1,31 +1,24 @@
-const charts = [
-    {
-        title: "Weight",
-        data: [
-            { x: 1, y: 70 },
-            { x: 2, y: 72 },
-            { x: 3, y: 71 },
-        ],
-        xAxisRange: 3,
-    },
-    {
-        title: "Systolic Blood Pressure",
-        data: [
-            { x: 1, y: 100 },
-            { x: 2, y: 111 },
-            { x: 3, y: 122 },
-        ],
-        xAxisRange: 3,
-    },
-    {
-        title: "Diastolic Blood Pressure",
-        data: [
-            { x: 1, y: 80 },
-            { x: 2, y: 82 },
-            { x: 3, y: 81 },
-        ],
-        xAxisRange: 3,
-    },
-];
+import { getMeasurements } from '../utils/storage';
 
-export default charts;
+const fetchChartData = async () => {
+    const measurements = await getMeasurements();
+    return [
+        {
+            title: "Weight (kg)",
+            data: measurements.map((m, index) => ({ x: index + 1, y: m.weight })),
+            xAxisRange: measurements.length,
+        },
+        {
+            title: "Systolic Blood Pressure (mmHg)",
+            data: measurements.map((m, index) => ({ x: index + 1, y: m.systolic_bp })),
+            xAxisRange: measurements.length,
+        },
+        {
+            title: "Diastolic Blood Pressure (mmHg)",
+            data: measurements.map((m, index) => ({ x: index + 1, y: m.diastolic_bp })),
+            xAxisRange: measurements.length,
+        },
+    ];
+};
+
+export default fetchChartData;

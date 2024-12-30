@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 
-const Chart = ({ data, title, xAxisRange, height = 350 }) => {
+const Chart = ({ data, title, height = 350 }) => {
     const yValues = data.map(point => point.y);
     const yMin = Math.min(...yValues) - 5; 
     const yMax = Math.max(...yValues) + 5;
 
-    const xLabels = data.map(point => `Day ${point.x}`);
+    const xLabels = data.map((point, index) => `Measurement ${index + 1}`);
 
     const options = {
         chart: {
@@ -38,11 +38,12 @@ const Chart = ({ data, title, xAxisRange, height = 350 }) => {
             },
         },
         markers: {
-            size: 0, 
+            size: 5,
+            colors: ['#ff0000'], 
         },
         xaxis: {
             type: 'category', 
-            categories: xLabels, // Use custom labels for the x-axis
+            categories: xLabels,
             labels: {
                 style: {
                     colors: '#ffffff', 
@@ -64,12 +65,19 @@ const Chart = ({ data, title, xAxisRange, height = 350 }) => {
         grid: {
             borderColor: '#444444', 
         },
+        tooltip: {
+            theme: 'dark',
+            marker: {
+                show: true,
+                fillColors: ['#ff0000'],
+            },
+        },
     };
 
     const series = [
         {
-            name: 'Data Series',
-            data: data.map(point => [point.x, point.y]) || [],
+            name: 'Measurement: ',
+            data: data.map(point => point.y) || [],
         },
     ];
 
