@@ -63,7 +63,7 @@ const PopupForm = ({ onClose, onSubmit }) => {
                 className="bg-[#171111] text-white p-6 rounded-lg w-[90%] max-w-md max-h-[90vh] overflow-y-auto no-scrollbar"
                 onClick={(e) => e.stopPropagation()}
             >
-                <h2 className="text-center text-lg font-bold mb-4">Heart Rate</h2>
+                <h2 className="text-center text-lg font-bold mb-4">Measurement</h2>
                 <hr className="mb-4 border-[#523d3d]" />
 
                 <form className="space-y-4" onSubmit={handleSubmit}>
@@ -136,7 +136,7 @@ const PopupForm = ({ onClose, onSubmit }) => {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium mb-1">Cholesterol</label>
+                        <label className="block text-sm font-medium mb-1">Cholesterol (1-10)</label>
                         <input
                             type="number"
                             name="cholesterol"
@@ -147,7 +147,7 @@ const PopupForm = ({ onClose, onSubmit }) => {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium mb-1">Glucose</label>
+                        <label className="block text-sm font-medium mb-1">Glucose (1-10)</label>
                         <input
                             type="number"
                             name="glucose"

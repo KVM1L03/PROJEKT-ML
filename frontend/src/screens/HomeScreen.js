@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import PopupForm from "../components/PopoutForm";
+import PopupForm from "../components/PopoutFormCVD";
 import mlModelsApi from "../api/mlModelsApi";
 import Chart from "../components/Chart";
-import fetchChartData from "../data/chartData";
+import {fetchCVDChartData} from "../data/chartData";
 import { saveMeasurement } from "../utils/storage";
 
 const HomeScreen = () => {
@@ -13,7 +13,7 @@ const HomeScreen = () => {
 
     useEffect(() => {
         const loadChartData = async () => {
-            const charts = await fetchChartData();
+            const charts = await fetchCVDChartData();
             setChartConfig(charts);
         };
         loadChartData();
@@ -32,8 +32,7 @@ const HomeScreen = () => {
     };
 
     const handleFormSubmit = async (formData) => {
-        console.log("Form data submitted:", formData);
-
+        
         const { age, gender, height, weight, systolic_bp, diastolic_bp, cholesterol, glucose, smoke, alcohol, physical_activity } = formData;
 
         const dataToSend = {
@@ -54,13 +53,13 @@ const HomeScreen = () => {
         await getPrediction(dataToSend);
         setShowPopup(false);
 
-        const charts = await fetchChartData();
+        const charts = await fetchCVDChartData();
         setChartConfig(charts);
     };
 
     const getPrediction = async (data) => {
         try {
-            const response = await mlModelsApi.getPrediction(data);
+            const response = await mlModelsApi.getCvdPrediction(data);
             const prediction = response.prediction[0];
 
             if (prediction === 1) {
@@ -106,7 +105,7 @@ const HomeScreen = () => {
                             {risk ? risk : "Check the prediction of heart disease based on AI"}
                         </p>
                         <p className="text-[#b79e9e] text-sm">
-                            Our model is acccurate in <span className="text-[#0bda0b] font-medium">73%</span>
+                            Remember, our model is acccurate in <span className="text-[#0bda0b] font-medium">72%</span>
                         </p>
                     </div>
                 </div>

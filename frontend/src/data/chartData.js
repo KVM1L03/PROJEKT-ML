@@ -1,6 +1,6 @@
-import { getMeasurements } from '../utils/storage';
+import { getMeasurements, getSleepScores } from '../utils/storage';
 
-const fetchChartData = async () => {
+const fetchCVDChartData = async () => {
     const measurements = await getMeasurements();
     return [
         {
@@ -21,4 +21,15 @@ const fetchChartData = async () => {
     ];
 };
 
-export default fetchChartData;
+const fetchSleepChartData = async () => {
+    const sleepScores = await getSleepScores();
+    return [
+        {
+            title: "Sleep Score",
+            data: sleepScores.map((s, index) => ({ x: index + 1, y: s })),
+            xAxisRange: sleepScores.length,
+        },
+    ];
+};
+
+export { fetchCVDChartData, fetchSleepChartData };

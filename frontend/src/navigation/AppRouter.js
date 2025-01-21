@@ -2,14 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
 import HomeScreen from "../screens/HomeScreen";
-import TrainingScreen from "../screens/TrainingScreen";
+import SleepScreen from "../screens/SleepScreen";
 
 const AppRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<HomeScreen />} />
-                <Route path="/training" element={<TrainingScreen />} />
+                <Route path="/sleep" element={<SleepScreen />} />
             </Routes>
         </BrowserRouter>
     );
