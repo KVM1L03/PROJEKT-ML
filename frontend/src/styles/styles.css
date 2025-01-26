@@ -1,0 +1,401 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", serif;
+}
+
+body, #root {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* Prevent scrolling */
+}
+
+@media screen and (min-width: 1024px) {
+
+    .left-section {
+        width: 25vw;
+        height: 100vh;
+    }
+    
+    .right-section {
+        width: 75vw;
+        height: 100vh;
+    }
+    
+    .flex {
+        display: flex;
+    }
+
+    /*  ===================   L E F T   S E C T I O N  ===================  */
+
+    .left-section {
+        height: 100vh;
+        background-color: #F0F0F0;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .left-section .logo {
+        margin: 10% 0;
+        user-select: none;
+    }
+
+    .left-section .buttons {
+        display: flex;
+        align-self: center;
+        flex-direction: column;
+        margin-top: 10%;
+        width: 80%;
+        background-color: white;
+        padding-bottom: 0.3vh;
+    }
+
+    .left-section .button {
+        height: 3.75rem;
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        margin-top: 0.3vh;
+        transition: color 0.3s ease, border-color ease;
+        z-index: 1;
+        font-weight: 700;
+        font-size: clamp(1rem, 1.5vw, 1.3rem);
+        letter-spacing: 0.2rem;
+        user-select: none;
+        cursor: pointer;
+        padding-right: 5%;
+        background-color: #F0F0F0;
+        box-sizing: border-box;
+    }
+    
+    .left-section .button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background-color: #353535;
+        transition: left 0.3s ease;
+        z-index: -1;
+    }
+    
+    .left-section .button:hover::before {
+        left: 0;
+    }
+    
+    .left-section .button:hover {
+        border-right: 0.5rem solid #CD0B23;
+        padding-right: 10%;
+        color: white;
+    }
+
+    .overlay {
+        display: flex; 
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .popup {
+        width: 400px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1001; 
+    }
+
+    .popup-content {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .popup-content h2 {
+        margin-bottom: 30px;
+        font-weight: 700;
+    }
+
+    .popup-content p {
+        margin-bottom: 30px;
+
+    }
+
+    .close-button {
+        padding: 10px 20px;
+        background-color: #CD0B23;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in, color 0.2s ease-in;
+    }
+
+    .close-button:hover {
+        background-color: #a3091d;
+        color: white;
+    }
+
+    .tutorial-popup {
+        width: 600px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1001;
+    }
+    
+    .tutorial-step {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    
+    .tutorial-step h2 {
+        font-weight: 800;
+        margin-bottom: 10px;
+        width: 50%;
+        padding-top: 5px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid black;
+    }
+    
+    .tutorial-step p {
+        margin-bottom: 20px;
+        padding: 20px 0;
+        border-bottom: 1px solid black;
+    }
+    
+    .tutorial-step img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+    
+    .tutorial-navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+    
+    .tutorial-navigation button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        background-color: #CD0B23;
+        color: white;
+        transition: background-color 0.3s ease;
+    }
+    
+    .tutorial-navigation button:hover {
+        background-color: #a3091d;
+    }
+    
+
+    .tutorial-step.active {
+        display: block;
+    }
+
+    .tutorial-navigation button:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+
+
+    /*  ===================   R I G H T   S E C T I O N  ===================  */
+
+    .right-section {
+        width: 75vw;
+        height: 100vh;
+        padding: 20px;
+        box-sizing: border-box;
+        overflow-y: auto;
+    }
+
+    .right-section h1 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .measure-button {
+        padding: 10px 20px;
+        background-color: #CD0B23;
+        color: white;
+        font-weight: bold;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        border: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .measure-button:hover {
+        background-color: #a3091d;
+    }
+
+    .risk-indicator {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        
+    }
+
+    .risk-indicator p {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .risk-indicator span {
+        color: #0bda0b;
+        font-weight: bold;
+    }
+
+    .chart-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .chart-buttons {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .container-text-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-right: 10%;
+    }
+
+    .right-section-sleep {
+        background-color: white;
+    }
+
+    .right-section-sleep header img {
+        height: 16rem;
+        margin: 0 auto;
+    }
+
+    .right-section-sleep section {
+        width: 100%;
+        text-align: center;
+        padding: 0.5rem 0;
+    }
+
+    .right-section-sleep section h3 {
+        font-size: 1.125rem;
+        font-weight: bold;
+        color: black;
+    }
+
+    .right-section-sleep section div {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background-color: white;
+        padding: 1rem;
+    }
+
+    .right-section-sleep section div button {
+        padding: 0.625rem 1.25rem;
+        background-color: #CD0B23;
+        color: white;
+        font-weight: bold;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        border: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .right-section-sleep section div button:hover {
+        background-color: #a3091d;
+    }
+
+    .right-section-sleep .prediction-section {
+        text-align: center;
+        padding: 1rem 0;
+    }
+
+    .right-section-sleep .prediction-section div {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        padding: 1.5rem 0;
+    }
+
+    .right-section-sleep .prediction-section div div {
+        min-width: 18rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        border-radius: 0.75rem;
+        border: 1px solid white;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    .right-section-sleep .prediction-section div div p {
+        font-size: 1rem;
+        color: white;
+    }
+
+    .right-section-sleep .prediction-section div div p:first-child {
+        font-weight: 500;
+    }
+
+    .right-section-sleep .chart-section {
+        padding: 1.5rem 0;
+    }
+
+    .right-section-sleep .chart-section div {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .right-section-sleep .chart-section div button {
+        padding: 0.5rem 1rem;
+        background-color: white;
+        color: black;
+        border-radius: 0.25rem;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    
+}
