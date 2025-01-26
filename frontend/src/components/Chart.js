@@ -22,31 +22,32 @@ const Chart = ({ data, title, height = 350 }) => {
             zoom: {
                 enabled: false,
             },
+            background: '#F0F0F0',
         },
         dataLabels: {
             enabled: false,
         },
         stroke: {
             curve: 'smooth',
-            colors: ['#ffffff'], 
+            colors: ['#CD0B23'],
         },
         title: {
             text: title || 'Static Chart',
             align: 'left',
             style: {
-                color: '#ffffff',
+                color: '#333333', 
             },
         },
         markers: {
             size: 5,
-            colors: ['#ff0000'], 
+            colors: ['#CD0B23'],
         },
         xaxis: {
             type: 'category', 
             categories: xLabels,
             labels: {
                 style: {
-                    colors: '#ffffff', 
+                    colors: '#333333', 
                 },
             },
         },
@@ -55,7 +56,7 @@ const Chart = ({ data, title, height = 350 }) => {
             max: yMax, 
             labels: {
                 style: {
-                    colors: '#ffffff',
+                    colors: '#333333',
                 },
             },
         },
@@ -63,13 +64,29 @@ const Chart = ({ data, title, height = 350 }) => {
             show: false,
         },
         grid: {
-            borderColor: '#444444', 
+            borderColor: '#CCCCCC',
         },
         tooltip: {
-            theme: 'dark',
+            theme: 'light',
             marker: {
                 show: true,
-                fillColors: ['#ff0000'],
+                fillColors: ['#CD0B23'], 
+            },
+        },
+        plotOptions: {
+            line: {
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'light',
+                        type: 'vertical',
+                        shadeIntensity: 0.5,
+                        gradientToColors: ['#CD0B23'], 
+                        inverseColors: false,
+                        opacityFrom: 0.8,
+                        opacityTo: 0.2,
+                    },
+                },
             },
         },
     };
@@ -82,8 +99,8 @@ const Chart = ({ data, title, height = 350 }) => {
     ];
 
     return (
-        <div className="flex flex-col items-center justify-between min-h-screen w-full bg-[#171111] overflow-x-hidden">
-            <div id="chart" className="w-full">
+        <div className="w-full bg-[#F0F0F0]">
+            <div id="chart">
                 <ReactApexChart options={options} series={series} type="line" height={height} />
             </div>
         </div>
