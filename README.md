@@ -35,12 +35,9 @@ Witaj w naszej **Aplikacji do Monitorowania Zdrowia**! Aplikacja ta pomaga użyt
 - **Wizualizacja Danych**: Interaktywne wykresy do śledzenia metryk zdrowotnych w czasie.
 
 ## 🖥️ Zrzuty Ekranu
-
-### Ekran Przewidywania Ryzyka CVD
-![Przewidywanie Ryzyka CVD](https://via.placeholder.com/600x400?text=Ekran+Przewidywania+Ryzyka+CVD)
-
-### Ekran Przewidywania Jakości Snu
-![Przewidywanie Jakości Snu](https://via.placeholder.com/600x400?text=Ekran+Przewidywania+Jakości+Snu)
+![Heart-page](https://github.com/user-attachments/assets/e890b2be-701c-415b-8c1d-6feadc9a8edd)
+![Home-page](https://github.com/user-attachments/assets/9f9c9535-5097-4152-84b0-6c28f0e2d6da)
+![Sleep-page](https://github.com/user-attachments/assets/646875d6-5e0c-40bd-b4d2-332f467e8b22)
 
 ## 🚀 Jak Zacząć
 
