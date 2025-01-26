@@ -36,7 +36,10 @@ Witaj w naszej **Aplikacji do Monitorowania Zdrowia**! Aplikacja ta pomaga użyt
 
 ## 🖥️ Zrzuty Ekranu
 
-// (Dodać zrzuty ekranu !)
+![Home-page](https://github.com/user-attachments/assets/edff4769-1d9a-4905-9a79-bafa85db4afb)
+![Heart-page](https://github.com/user-attachments/assets/724cf725-0218-40e4-aa39-7e84ba57f896)
+![Sleep-page](https://github.com/user-attachments/assets/f9686b33-97ea-4dfc-a692-1c006b93a978)
+
 
 ## 🚀 Jak Zacząć
 
