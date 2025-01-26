@@ -35,25 +35,25 @@ const RightSectionHeart = () => {
 
     const handleCvdFormSubmit = async (formData) => {
         const { age, gender, height, weight, systolic_bp, diastolic_bp, cholesterol, glucose, smoke, alcohol, physical_activity } = formData;
-
+    
         const dataToSend = {
-            age,
-            gender,
-            height,
-            weight,
-            systolic_bp,
-            diastolic_bp,
-            cholesterol,
-            glucose,
-            smoke,
-            alcohol,
-            physical_activity,
+            age: parseInt(age),
+            gender: parseInt(gender),
+            height: parseInt(height),
+            weight: parseInt(weight),
+            ap_hi: parseInt(systolic_bp),
+            ap_lo: parseInt(diastolic_bp),
+            cholesterol: parseInt(cholesterol),
+            gluc: parseInt(glucose),
+            smoke: parseInt(smoke),
+            alco: parseInt(alcohol),
+            active: parseInt(physical_activity),
         };
-
+    
         await saveMeasurement(dataToSend);
         await getPrediction(dataToSend);
         setShowCvdPopup(false);
-
+    
         const charts = await fetchCVDChartData();
         setChartConfig(charts);
     };
@@ -73,7 +73,6 @@ const RightSectionHeart = () => {
                 setRisk("Unable to determine risk");
             }
 
-            console.log("Prediction:", prediction);
         } catch (error) {
             console.error("Error fetching prediction:", error);
         }
@@ -94,8 +93,8 @@ const RightSectionHeart = () => {
                 
                 <div className="risk-indicator">
                 <p>
-                {risk 
-                    ? risk 
+                {
+                risk ? risk 
                     : (
                     <>
                         Check the prediction of heart disease based on AI.<br />

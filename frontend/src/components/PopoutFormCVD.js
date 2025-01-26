@@ -60,7 +60,7 @@ const PopupForm = ({ onClose, onSubmit }) => {
             onClick={onClose}
         >
             <div
-                className="bg-[#171111] text-white p-6 rounded-lg w-[90%] max-w-md max-h-[90vh] overflow-y-auto no-scrollbar"
+                className="bg-[#F0F0F0] p-6 rounded-lg w-[90%] max-w-md max-h-[90vh] overflow-y-auto no-scrollbar"
                 onClick={(e) => e.stopPropagation()}
             >
                 <h2 className="text-center text-lg font-bold mb-4">Measurement</h2>
@@ -74,7 +74,7 @@ const PopupForm = ({ onClose, onSubmit }) => {
                             name="age"
                             value={formData.age}
                             onChange={handleInputChange}
-                            className="w-full bg-[#382929] text-white p-2 rounded"
+                            className="w-full p-2 rounded"
                             placeholder="Enter your age"
                         />
                     </div>
@@ -84,7 +84,7 @@ const PopupForm = ({ onClose, onSubmit }) => {
                             name="gender"
                             value={formData.gender}
                             onChange={handleInputChange}
-                            className="w-full bg-[#382929] text-white p-2 rounded"
+                            className="w-full p-2 rounded"
                         >
                             <option value="">Select Gender</option>
                             <option value="1">Woman</option>
@@ -98,7 +98,7 @@ const PopupForm = ({ onClose, onSubmit }) => {
                             name="height"
                             value={formData.height}
                             onChange={handleInputChange}
-                            className="w-full bg-[#382929] text-white p-2 rounded"
+                            className="w-full p-2 rounded"
                             placeholder="Enter your height (cm)"
                         />
                     </div>
@@ -109,7 +109,7 @@ const PopupForm = ({ onClose, onSubmit }) => {
                             name="weight"
                             value={formData.weight}
                             onChange={handleInputChange}
-                            className="w-full bg-[#382929] text-white p-2 rounded"
+                            className="w-full p-2 rounded"
                             placeholder="Enter your weight (kg)"
                         />
                     </div>
@@ -120,7 +120,7 @@ const PopupForm = ({ onClose, onSubmit }) => {
                             name="systolic_bp"
                             value={formData.systolic_bp}
                             onChange={handleInputChange}
-                            className="w-full bg-[#382929] text-white p-2 rounded"
+                            className="w-full p-2 rounded"
                             placeholder="Enter your systolic BP"
                         />
                     </div>
@@ -131,7 +131,7 @@ const PopupForm = ({ onClose, onSubmit }) => {
                             name="diastolic_bp"
                             value={formData.diastolic_bp}
                             onChange={handleInputChange}
-                            className="w-full bg-[#382929] text-white p-2 rounded"
+                            className="w-full p-2 rounded"
                             placeholder="Enter your diastolic BP"
                         />
                     </div>
@@ -142,7 +142,7 @@ const PopupForm = ({ onClose, onSubmit }) => {
                             name="cholesterol"
                             value={formData.cholesterol}
                             onChange={handleInputChange}
-                            className="w-full bg-[#382929] text-white p-2 rounded"
+                            className="w-full p-2 rounded"
                             placeholder="Enter your cholesterol level"
                         />
                     </div>
@@ -153,7 +153,7 @@ const PopupForm = ({ onClose, onSubmit }) => {
                             name="glucose"
                             value={formData.glucose}
                             onChange={handleInputChange}
-                            className="w-full bg-[#382929] text-white p-2 rounded"
+                            className="w-full p-2 rounded"
                             placeholder="Enter your glucose level"
                         />
                     </div>
@@ -163,7 +163,7 @@ const PopupForm = ({ onClose, onSubmit }) => {
                             name="smoke"
                             value={formData.smoke}
                             onChange={handleInputChange}
-                            className="w-full bg-[#382929] text-white p-2 rounded"
+                            className="w-full p-2 rounded"
                         >
                             <option value="">Select Smoking Status</option>
                             <option value="0">No</option>
@@ -176,7 +176,7 @@ const PopupForm = ({ onClose, onSubmit }) => {
                             name="alcohol"
                             value={formData.alcohol}
                             onChange={handleInputChange}
-                            className="w-full bg-[#382929] text-white p-2 rounded"
+                            className="w-full p-2 rounded"
                         >
                             <option value="">Select Alcohol Intake</option>
                             <option value="0">No</option>
@@ -189,7 +189,7 @@ const PopupForm = ({ onClose, onSubmit }) => {
                             name="physical_activity"
                             value={formData.physical_activity}
                             onChange={handleInputChange}
-                            className="w-full bg-[#382929] text-white p-2 rounded"
+                            className="w-full p-2 rounded"
                         >
                             <option value="">Select Physical Activity</option>
                             <option value="0">No</option>
