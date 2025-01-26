@@ -37,13 +37,14 @@ const PopoutFormSleep = ({ onClose, onSubmit }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-    
+
         const errorMessage = validateInput();
         if (errorMessage) {
             alert(errorMessage);
             return;
         }
-    
+
+        // Convert form data to the required format
         const formattedData = {
             Gender: formData.gender,
             Age: parseInt(formData.age, 10),
@@ -54,11 +55,12 @@ const PopoutFormSleep = ({ onClose, onSubmit }) => {
             "BMI Category": formData.bmi_category,
             "Daily Steps": parseInt(formData.daily_steps, 10),
         };
-    
+
+        console.log("Formatted data to submit:", formattedData);
+
         onSubmit(formattedData);
         onClose();
     };
-    
 
     return (
         <div
@@ -66,11 +68,11 @@ const PopoutFormSleep = ({ onClose, onSubmit }) => {
             onClick={onClose}
         >
             <div
-                className="bg-[#F0F0F0] text-[#333333] p-6 rounded-lg w-[90%] max-w-md max-h-[90vh] overflow-y-auto no-scrollbar"
+                className="bg-[#171111] text-white p-6 rounded-lg w-[90%] max-w-md max-h-[90vh] overflow-y-auto no-scrollbar"
                 onClick={(e) => e.stopPropagation()}
             >
                 <h2 className="text-center text-lg font-bold mb-4">Sleep Measurement</h2>
-                <hr className="mb-4 border-[#CCCCCC]" />
+                <hr className="mb-4 border-[#523d3d]" />
 
                 <form className="space-y-4" onSubmit={handleSubmit}>
                     <div>
@@ -79,7 +81,7 @@ const PopoutFormSleep = ({ onClose, onSubmit }) => {
                             name="gender"
                             value={formData.gender}
                             onChange={handleInputChange}
-                            className="w-full bg-white text-[#333333] p-2 rounded border border-[#CCCCCC]"
+                            className="w-full bg-[#382929] text-white p-2 rounded"
                         >
                             <option value="">Select Gender</option>
                             <option value="Male">Male</option>
@@ -93,7 +95,7 @@ const PopoutFormSleep = ({ onClose, onSubmit }) => {
                             name="age"
                             value={formData.age}
                             onChange={handleInputChange}
-                            className="w-full bg-white text-[#333333] p-2 rounded border border-[#CCCCCC]"
+                            className="w-full bg-[#382929] text-white p-2 rounded"
                             placeholder="Enter your age"
                         />
                     </div>
@@ -104,7 +106,7 @@ const PopoutFormSleep = ({ onClose, onSubmit }) => {
                             name="occupation"
                             value={formData.occupation}
                             onChange={handleInputChange}
-                            className="w-full bg-white text-[#333333] p-2 rounded border border-[#CCCCCC]"
+                            className="w-full bg-[#382929] text-white p-2 rounded"
                             placeholder="Enter your occupation"
                         />
                     </div>
@@ -115,7 +117,7 @@ const PopoutFormSleep = ({ onClose, onSubmit }) => {
                             name="sleep_duration"
                             value={formData.sleep_duration}
                             onChange={handleInputChange}
-                            className="w-full bg-white text-[#333333] p-2 rounded border border-[#CCCCCC]"
+                            className="w-full bg-[#382929] text-white p-2 rounded"
                             placeholder="Enter your sleep duration (hours)"
                         />
                     </div>
@@ -126,7 +128,7 @@ const PopoutFormSleep = ({ onClose, onSubmit }) => {
                             name="physical_activity_level"
                             value={formData.physical_activity_level}
                             onChange={handleInputChange}
-                            className="w-full bg-white text-[#333333] p-2 rounded border border-[#CCCCCC]"
+                            className="w-full bg-[#382929] text-white p-2 rounded"
                             placeholder="Enter your physical activity level (minutes/day)"
                         />
                     </div>
@@ -137,7 +139,7 @@ const PopoutFormSleep = ({ onClose, onSubmit }) => {
                             name="stress_level"
                             value={formData.stress_level}
                             onChange={handleInputChange}
-                            className="w-full bg-white text-[#333333] p-2 rounded border border-[#CCCCCC]"
+                            className="w-full bg-[#382929] text-white p-2 rounded"
                             placeholder="Enter your stress level (1-10)"
                         />
                     </div>
@@ -147,7 +149,7 @@ const PopoutFormSleep = ({ onClose, onSubmit }) => {
                             name="bmi_category"
                             value={formData.bmi_category}
                             onChange={handleInputChange}
-                            className="w-full bg-white text-[#333333] p-2 rounded border border-[#CCCCCC]"
+                            className="w-full bg-[#382929] text-white p-2 rounded"
                         >
                             <option value="">Select BMI Category</option>
                             <option value="Underweight">Underweight</option>
@@ -163,7 +165,7 @@ const PopoutFormSleep = ({ onClose, onSubmit }) => {
                             name="daily_steps"
                             value={formData.daily_steps}
                             onChange={handleInputChange}
-                            className="w-full bg-white text-[#333333] p-2 rounded border border-[#CCCCCC]"
+                            className="w-full bg-[#382929] text-white p-2 rounded"
                             placeholder="Enter your daily steps"
                         />
                     </div>
@@ -173,13 +175,13 @@ const PopoutFormSleep = ({ onClose, onSubmit }) => {
                     <button
                         type="submit"
                         onClick={handleSubmit}
-                        className="px-4 py-2 bg-[#CD0B23] text-white font-bold rounded"
+                        className="px-4 py-2 bg-[#df2020] text-white font-bold rounded"
                     >
                         Submit
                     </button>
                     <button
                         onClick={onClose}
-                        className="px-4 py-2 bg-[#CD0B23] text-white font-bold rounded"
+                        className="px-4 py-2 bg-[#df2020] text-white font-bold rounded"
                     >
                         Close
                     </button>
