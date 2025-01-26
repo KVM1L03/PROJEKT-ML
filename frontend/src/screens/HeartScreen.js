@@ -1,133 +1,51 @@
-import React, { useState, useEffect } from "react";
-import PopupForm from "../components/PopoutFormCVD";
-import mlModelsApi from "../api/mlModelsApi";
-import Chart from "../components/Chart";
-import { fetchCVDChartData } from "../data/chartData";
-import { saveMeasurement } from "../utils/storage";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import LeftSection from "../components/LeftSectionHeart";
+import RightSection from "../components/RightSectionHeart";
+import Popup from "../components/PopupHeart";
+import TutorialPopupHeart from "../components/TutorialPopupHeart";
+import "../styles/styles.css";
+import PageTitle from "../components/page/PageTitle";
 
 const HeartScreen = () => {
-    const [showPopup, setShowPopup] = useState(false);
-    const [risk, setRisk] = useState(null);
-    const [chartConfig, setChartConfig] = useState([]);
-    const [selectedChartIndex, setSelectedChartIndex] = useState(0);
-
-    useEffect(() => {
-        const loadChartData = async () => {
-            const charts = await fetchCVDChartData();
-            setChartConfig(charts);
-        };
-        loadChartData();
-    }, []);
-
-    const handleChartSwitch = (index) => {
-        setSelectedChartIndex(index);
-    };
-
-    const handleMeasureClick = () => {
-        setShowPopup(true);
-    };
-
-    const closePopup = () => {
-        setShowPopup(false);
-    };
-
-    const handleFormSubmit = async (formData) => {
-        const { age, gender, height, weight, systolic_bp, diastolic_bp, cholesterol, glucose, smoke, alcohol, physical_activity } = formData;
-
-        const dataToSend = {
-            age: parseInt(age),
-            gender: parseInt(gender),
-            height: parseInt(height),
-            weight: parseInt(weight),
-            ap_hi: parseInt(systolic_bp),
-            ap_lo: parseInt(diastolic_bp),
-            cholesterol: parseInt(cholesterol),
-            gluc: parseInt(glucose),
-            smoke: parseInt(smoke),
-            alco: parseInt(alcohol),
-            active: parseInt(physical_activity),
-        };
-
-        await saveMeasurement(dataToSend);
-        await getPrediction(dataToSend);
-        setShowPopup(false);
-
-        const charts = await fetchCVDChartData();
-        setChartConfig(charts);
-    };
-
-    const getPrediction = async (data) => {
-        try {
-            const response = await mlModelsApi.getCvdPrediction(data);
-            const prediction = response.prediction[0];
-
-            if (prediction === 1) {
-                setRisk("High risk of heart disease");
-            } else if (prediction === 0) {
-                setRisk("Low risk of heart disease");
-            } else {
-                setRisk("Unable to determine risk");
-            }
-
-            console.log("Prediction:", prediction);
-        } catch (error) {
-            console.error("Error fetching prediction:", error);
-        }
-    };
+    const [showAboutPopup, setShowAboutPopup] = useState(false);
+    const [showTutorialPopup, setShowTutorialPopup] = useState(false);
+    const navigate = useNavigate(); 
 
     return (
-        <div className="relative flex size-full min-h-screen flex-col bg-[#171111] justify-between overflow-x-hidden items-center">
-            <header className="w-full bg-[#171111] p-4 pb-2 text-center">
-                <img alt="" /><img src="https://i.ibb.co/sqBfgHf/obraz-2024-12-30-111017033-removebg-preview.png" alt="AI Health Logo" className="mx-auto h-64" />
-            </header>
+        <div>
+        <PageTitle title="Heart Attack Risk Indicator" />
+            <div className="flex h-screen w-screen">
+                
+                <div className="w-1/4 h-full">
+                    <LeftSection
+                        onHomeClick={() => {
+                            console.log("Home button clicked");
+                            navigate("/");
+                        }}
 
-            <section className="w-full text-center py-2">
-                <h3 className="text-white text-lg font-bold">Heart Attack Risk Indicator</h3>
-                <div className="flex items-center gap-4 bg-[#171111] px-4 py-2">
-                </div>
-            </section>
-
-            {showPopup && <PopupForm onSubmit={handleFormSubmit} onClose={closePopup} />}
-
-            <button
-                className="px-6 py-2 bg-[#df2020] text-white font-bold rounded-2xl mt-6 mb-10"
-                onClick={handleMeasureClick}
-            >
-                Add Measurement
-            </button>
-
-            <section className="text-center py-4">
-                <div className="flex flex-wrap gap-4 justify-center py-6">
-                    <div className="min-w-72 flex-1 flex flex-col gap-2 rounded-xl border border-[#523d3d] p-6 text-center">
-                        <p className="text-white text-base font-medium">
-                            {risk ? risk : "Check the prediction of heart disease based on AI"}
-                        </p>
-                        <p className="text-[#b79e9e] text-sm">
-                            Remember, our model is accurate in <span className="text-[#0bda0b] font-medium">72%</span>
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <section className="py-6">
-                <div className="flex justify-center gap-4 pb-4">
-                    {Array.isArray(chartConfig) && chartConfig.map((chart, index) => (
-                        <button
-                            key={index}
-                            onClick={() => handleChartSwitch(index)}
-                            className="px-4 py-2 bg-white text-black rounded font-bold"
-                        >
-                            {chart.title}
-                        </button>
-                    ))}
-                </div>
-                {Array.isArray(chartConfig) && chartConfig.length > 0 && (
-                    <Chart
-                        data={chartConfig[selectedChartIndex].data}
-                        title={chartConfig[selectedChartIndex].title}
+                        onAboutClick={() => {
+                            console.log("About button clicked"); 
+                            setShowAboutPopup(true);
+                        }}
+                        onTutorialClick={() => {
+                            console.log("Tutorial button clicked");
+                            setShowTutorialPopup(true);
+                        }}
                     />
+                </div>
+
+                <div className="w-3/4 h-full">
+                    <RightSection />
+                </div>
+
+                {showAboutPopup && (
+                    <Popup onClose={() => setShowAboutPopup(false)} />
                 )}
-            </section>
+                {showTutorialPopup && (
+                    <TutorialPopupHeart onClose={() => setShowTutorialPopup(false)} />
+                )}
+            </div>
         </div>
     );
 };

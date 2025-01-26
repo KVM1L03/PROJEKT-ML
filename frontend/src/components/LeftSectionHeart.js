@@ -1,6 +1,6 @@
 import React from "react";
-import "../styles/styles.css"; 
-import logo from "../styles/photos/logo.png";
+import "../styles/styles.css"; // Import your CSS file
+import logo from "../styles/photos/logo.png"; // Import the logo image
 
 const LeftSection = ({ onAboutClick, onTutorialClick, onHomeClick }) => {
     return (
