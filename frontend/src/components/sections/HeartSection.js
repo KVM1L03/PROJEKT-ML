@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import PopoutFormCVD from "./PopoutFormCVD";
-import Chart from "./Chart";
-import { fetchCVDChartData } from "../data/chartData";
-import { saveMeasurement } from "../utils/storage";
-import mlModelsApi from "../api/mlModelsApi";
-import "../styles/styles.css"; // Import your CSS file
+import PopoutFormCVD from "../popouts/PopoutFormCVD";
+import Chart from "../Chart";
+import { fetchCVDChartData } from "../../data/chartData";
+import { saveMeasurement, clearMeasurements } from "../../utils/storage";
+import mlModelsApi from "../../api/mlModelsApi";
+import "../../styles/styles.css";
 
 const RightSectionHeart = () => {
     const [showCvdPopup, setShowCvdPopup] = useState(false);
@@ -15,6 +15,7 @@ const RightSectionHeart = () => {
     useEffect(() => {
         const loadChartData = async () => {
             const charts = await fetchCVDChartData();
+            console.log('Loaded chart data:', charts);
             setChartConfig(charts);
         };
         loadChartData();
@@ -24,18 +25,23 @@ const RightSectionHeart = () => {
         setSelectedChartIndex(index);
     };
 
-    const handleCvdMeasureClick = () => {
+    const handleCvdMeasureClick = async () => {
         setShowCvdPopup(true);
+    };
+
+    const handleClearChartData = async () => {
+        await clearMeasurements();
+        const charts = await fetchCVDChartData();
+        setChartConfig(charts);
     };
 
     const closeCvdPopup = () => {
         setShowCvdPopup(false);
     };
 
-
     const handleCvdFormSubmit = async (formData) => {
         const { age, gender, height, weight, systolic_bp, diastolic_bp, cholesterol, glucose, smoke, alcohol, physical_activity } = formData;
-    
+
         const dataToSend = {
             age: parseInt(age),
             gender: parseInt(gender),
@@ -49,16 +55,14 @@ const RightSectionHeart = () => {
             alco: parseInt(alcohol),
             active: parseInt(physical_activity),
         };
-    
+
         await saveMeasurement(dataToSend);
         await getPrediction(dataToSend);
         setShowCvdPopup(false);
-    
+
         const charts = await fetchCVDChartData();
         setChartConfig(charts);
     };
-
-    
 
     const getPrediction = async (data) => {
         try {
@@ -82,7 +86,7 @@ const RightSectionHeart = () => {
         <div className="right-section">
             <div className="container-text-button">
                 <h1>Heart Attack Risk Indicator</h1>
-                
+
                 <button
                     className="measure-button"
                     onClick={handleCvdMeasureClick}
@@ -90,22 +94,23 @@ const RightSectionHeart = () => {
                     Add CVD Measurement
                 </button>
 
-                
+
+
                 <div className="risk-indicator">
-                <p>
-                {
-                risk ? risk 
-                    : (
-                    <>
-                        Check the prediction of heart disease based on AI.<br />
-                        Remember, our model is accurate in <span>72%</span>.
-                    </>
-                    )}
-                </p>
+                    <p>
+                        {
+                            risk ? risk
+                                : (
+                                    <>
+                                        Check the prediction of heart disease based on AI.<br />
+                                        Remember, our model is accurate in <span>72%</span>.
+                                    </>
+                                )}
+                    </p>
 
 
                 </div>
-            
+
             </div>
 
             {showCvdPopup && <PopoutFormCVD onSubmit={handleCvdFormSubmit} onClose={closeCvdPopup} />}
@@ -121,6 +126,14 @@ const RightSectionHeart = () => {
                             {chart.title}
                         </button>
                     ))}
+                    {chartConfig.length > 0 && (
+                        <button
+                            onClick={handleClearChartData}
+                            className="px-4 py-2 bg-red-500 text-white rounded font-bold"
+                        >
+                            Clear Chart Data
+                        </button>
+                    )}
                 </div>
                 {chartConfig.length > 0 && (
                     <Chart

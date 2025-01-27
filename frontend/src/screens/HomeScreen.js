@@ -11,11 +11,11 @@ const HomeScreen = () => {
             <PageTitle title="Home" />
             <div className="flex flex-col items-center justify-center h-screen">
                 {/* Title */}
-                <h1 className="text-4xl font-bold mb-4">Welcome to BeHealthAI</h1>
+                <h1 className="text-4xl font-bold mb-4">Welcome to BeHealthyAI</h1>
 
                 {/* Text about the project */}
                 <p className="text-lg text-center mb-8 max-w-2xl">
-                    BeHealthAI is a health monitoring application that helps you track your heart health and sleep patterns. 
+                    BeHealthyAI is a health monitoring application that helps you track your heart health and sleep patterns. 
                     Use the buttons below to explore the features.
                 </p>
 
@@ -23,13 +23,13 @@ const HomeScreen = () => {
                 <div className="flex gap-4">
                     <button
                         className="px-6 py-2 bg-[#CD0B23] text-white font-bold rounded-lg"
-                        onClick={() => navigate("/heart")} // Navigate to HeartScreen
+                        onClick={() => navigate("/heart")} 
                     >
                         Heart Health
                     </button>
                     <button
                         className="px-6 py-2 bg-[#CD0B23] text-white font-bold rounded-lg"
-                        onClick={() => navigate("/sleep")} // Navigate to SleepScreen
+                        onClick={() => navigate("/sleep")} 
                     >
                         Sleep Patterns
                     </button>

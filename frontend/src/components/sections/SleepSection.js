@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import PopoutFormSleep from "../components/PopoutFormSleep";
-import { fetchSleepChartData } from "../data/chartData";
-import mlModelsApi from "../api/mlModelsApi";
-import "../styles/styles.css";
+import PopoutFormSleep from "../popouts/PopoutFormSleep";
+import { fetchSleepChartData } from "../../data/chartData";
+import mlModelsApi from "../../api/mlModelsApi";
+import "../../styles/styles.css";
 import {
     ComposedChart,
     Bar,
@@ -15,17 +15,18 @@ import {
     ResponsiveContainer,
     Label,
 } from "recharts";
+import { clearSleepScores } from "../../utils/storage";
 
-const RightSectionSleep = () => {
+const SleepSection = () => {
     const [showPopout, setShowPopout] = useState(false);
     const [prediction, setPrediction] = useState(null);
     const [chartConfig, setChartConfig] = useState([]);
-    const [selectedChartIndex, setSelectedChartIndex] = useState(0);
     const [sleepData, setSleepData] = useState([]);
 
     useEffect(() => {
         const loadChartData = async () => {
             const charts = await fetchSleepChartData();
+            console.log('Loaded chart data:', charts); 
             setChartConfig(charts);
 
             const measurements = JSON.parse(localStorage.getItem("sleepMeasurements")) || [];
@@ -42,27 +43,27 @@ const RightSectionSleep = () => {
     const handleFormSubmit = async (data) => {
         try {
             const response = await mlModelsApi.getSleepPrediction(data);
-    
+
             if (response && response.prediction) {
                 const predictionValue = response.prediction[0];
                 setPrediction(predictionValue);
-    
+
                 const measurements = JSON.parse(localStorage.getItem('sleepMeasurements')) || [];
                 const newMeasurement = {
                     ...data,
                     predictionScore: predictionValue,
                 };
-    
+
                 const isDuplicate = measurements.some(measurement =>
                     measurement["Sleep Duration"] === newMeasurement["Sleep Duration"] &&
                     measurement.predictionScore === newMeasurement.predictionScore
                 );
-    
+
                 if (!isDuplicate) {
                     measurements.push(newMeasurement);
                     localStorage.setItem('sleepMeasurements', JSON.stringify(measurements));
                 }
-    
+
                 const formattedData = measurements.map((measurement, index) => ({
                     name: `Day ${index + 1}`,
                     sleepDuration: measurement["Sleep Duration"],
@@ -77,7 +78,16 @@ const RightSectionSleep = () => {
             setPrediction('Error occurred while getting the prediction.');
         }
     };
-    
+
+    const handleClearChartData = async () => {
+        await clearSleepScores(); 
+        localStorage.removeItem('sleepMeasurements'); 
+        const charts = await fetchSleepChartData(); 
+        console.log('Cleared chart data:', charts); 
+        setChartConfig(charts); 
+        setSleepData([]); 
+        setPrediction(null); 
+    };
 
     return (
         <div className="right-section">
@@ -96,6 +106,14 @@ const RightSectionSleep = () => {
                         </p>
                     </div>
                 )}
+                {sleepData.length > 0 && (
+                    <button
+                        onClick={handleClearChartData}
+                        className="px-4 py-2 bg-red-500 text-white rounded font-bold"
+                    >
+                        Clear Chart Data
+                    </button>
+                )}
             </div>
 
             {showPopout && (
@@ -113,7 +131,7 @@ const RightSectionSleep = () => {
                     >
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name">
-                            <Label value="Days" offset={-5} position="insideBottom" />
+                            <Label offset={-5} position="insideBottom" />
                         </XAxis>
                         <YAxis
                             yAxisId="left"
@@ -157,4 +175,4 @@ const RightSectionSleep = () => {
     );
 };
 
-export default RightSectionSleep;
+export default SleepSection;

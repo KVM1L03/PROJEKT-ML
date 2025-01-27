@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import step1 from "../styles/photos/heart/step1.jpg";
-import step2 from "../styles/photos/heart/step2.jpg";
-import step3 from "../styles/photos/heart/step3.jpg";
+import step1 from "../../styles/photos/sleep/step1.jpg";
+import step2 from "../../styles/photos/sleep/step2.jpg";
+import step3 from "../../styles/photos/sleep/step3.jpg";
 
-const TutorialPopupHeart = ({ onClose }) => {
+const TutorialPopupSleep = ({ onClose }) => {
     const [currentStep, setCurrentStep] = useState(0);
 
     const steps = [
@@ -14,17 +14,17 @@ const TutorialPopupHeart = ({ onClose }) => {
         },
         {
             title: "Step 2: Enter Your Measurements",
-            content: "Fill out the form with your personal health data, such as age, gender, height, weight, blood pressure, cholesterol, and glucose levels. Make sure all fields are accurate.",
+            content: "Fill out the form with your personal data, such as age, sleep duration, physical activity level, stress level, BMI category, and daily steps. Make sure all fields are accurate.",
             image: step2,
         },
         {
             title: "Step 3: Submit Your Data",
-            content: "After entering your measurements, click the 'Submit' button to save your data. This will process your information and calculate your health score.",
+            content: "After entering your measurements, click the 'Submit' button to save your data. This will process your information and calculate your sleep score.",
             image: step3,
         },
         {
             title: "Step 4: Check Your Score",
-            content: "Once your data is submitted, you can view your health score on the chart. The chart will display your results and trends over time.",
+            content: "Once your data is submitted, you can view your sleep score on the chart. The chart will display your results and trends over time.",
         },
     ];
 
@@ -74,4 +74,4 @@ const TutorialPopupHeart = ({ onClose }) => {
     );
 };
 
-export default TutorialPopupHeart;
+export default TutorialPopupSleep;

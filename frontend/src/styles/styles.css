@@ -11,7 +11,7 @@ body, #root {
     padding: 0;
     width: 100vw;
     height: 100vh;
-    overflow: hidden; /* Prevent scrolling */
+    overflow: hidden;
 }
 
 @media screen and (min-width: 1024px) {
@@ -43,6 +43,7 @@ body, #root {
     .left-section .logo {
         margin: 10% 0;
         user-select: none;
+        height: 15vh;
     }
 
     .left-section .buttons {

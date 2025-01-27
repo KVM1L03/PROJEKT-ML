@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import LeftSectionSleep from "../components/LeftSectionSleep";
-import RightSectionSleep from "../components/RightSectionSleep";
-import PopupSleep from "../components/PopupSleep";
-import TutorialPopupSleep from "../components/TutorialPopupSleep";
+import SideNavBar from "../components/SideNavBar";
+import PopupSleep from "../components/popouts/PopupSleep";
+import TutorialPopupSleep from "../components/popouts/TutorialPopupSleep";
 import "../styles/styles.css";
 import PageTitle from "../components/page/PageTitle";
+import SleepSection from "../components/sections/SleepSection";
 
 const SleepScreen = () => {
     const [showAboutPopup, setShowAboutPopup] = useState(false);
@@ -17,15 +17,28 @@ const SleepScreen = () => {
             <PageTitle title="Sleep Prediction" />
             <div className="flex h-screen w-screen">
                 <div className="w-1/4 h-full">
-                    <LeftSectionSleep
-                        onHomeClick={() => navigate("/")}
-                        onAboutClick={() => setShowAboutPopup(true)}
-                        onTutorialClick={() => setShowTutorialPopup(true)}
+                    <SideNavBar
+                        onHeartClick={() => {
+                            navigate("/heart");
+                        }}
+                        onSleepClick={() => {
+                            navigate("/sleep");
+                        }}
+                        onHomeClick={() => {
+                            navigate("/");
+                        }}
+
+                        onAboutClick={() => {
+                            setShowAboutPopup(true);
+                        }}
+                        onTutorialClick={() => {
+                            setShowTutorialPopup(true);
+                        }}
                     />
                 </div>
 
                 <div className="w-3/4 h-full">
-                    <RightSectionSleep />
+                    <SleepSection />
                 </div>
 
                 {showAboutPopup && (
