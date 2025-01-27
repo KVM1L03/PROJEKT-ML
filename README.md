@@ -35,9 +35,11 @@ Witaj w naszej **Aplikacji do Monitorowania Zdrowia**! Aplikacja ta pomaga użyt
 - **Wizualizacja Danych**: Interaktywne wykresy do śledzenia metryk zdrowotnych w czasie.
 
 ## 🖥️ Zrzuty Ekranu
-![Heart-page](https://github.com/user-attachments/assets/e890b2be-701c-415b-8c1d-6feadc9a8edd)
-![Home-page](https://github.com/user-attachments/assets/9f9c9535-5097-4152-84b0-6c28f0e2d6da)
-![Sleep-page](https://github.com/user-attachments/assets/646875d6-5e0c-40bd-b4d2-332f467e8b22)
+![image](https://github.com/user-attachments/assets/dbcf6a34-3c17-4d06-8902-98218ba30f44)
+![image](https://github.com/user-attachments/assets/562f8d03-5aea-40a7-8d39-f4a31509c31c)
+![image](https://github.com/user-attachments/assets/c3294bb1-fc76-443d-a51e-537480c2d98d)
+![image](https://github.com/user-attachments/assets/15fb233d-1d11-40b1-8dbf-03ba9f8c1571)
+![image](https://github.com/user-attachments/assets/d906e481-d461-49d4-b49f-301dfad33f46)
 
 ## 🚀 Jak Zacząć
 
