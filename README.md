@@ -21,7 +21,7 @@ Witaj w naszej **Aplikacji do Monitorowania Zdrowia**! Aplikacja ta pomaga użyt
 
 ### 2. Przewidywanie Jakości Snu 🌙
 
-- **Dane Wejściowe**: Użytkownicy mogą wprowadzać dane związane ze snem (np. czas trwania snu, tętno podczas snu).
+- **Dane Wejściowe**: Użytkownicy mogą wprowadzać dane związane ze snem (np. czas trwania snu).
 - **Predykcja**: Aplikacja przewiduje **jakość snu** użytkownika w skali od **1 do 10**, wykorzystując model **Random Forest**.
 - **Wykresy**: Pod predykcją użytkownicy mogą zobaczyć interaktywny wykres przedstawiający ich **jakość snu** na przestrzeni czasu.
 
